@@ -34,23 +34,23 @@ typedef struct t_lista t_lista;
 int inicializa_lista(t_lista *l);
 
 /*
-  Retorna 1 se a lista está vazia e zero caso contrário.
+  Retorna 1 se a lista está vazia, senão 0.
 */
 int lista_vazia(t_lista *l);
 
 /*
-  Retorna 1 se a lista está destruida e zero caso contrário
+  Retorna 1 se a lista está destruida, senão 0.
 */
 int lista_destruida(t_lista *l);
 
 /*
-  Remove todos os elementos da lista e faz com que ela aponte para NULL.
+  Remove todos os elementos da lista, inclusive os sentinelas.
 */
 void destroi_lista(t_lista *l);
 
 /*
-  Insere o elemento item no início da lista.
-  Retorna 1 se a operação foi bem sucedida e zero caso contrário.
+  Insere as chaves i e j no início da lista.
+  Retorna 1 se a operação foi bem sucedida, senão 0.
 */
 int insere_inicio_lista(int i, int j, t_lista *l);
 
@@ -60,45 +60,37 @@ int insere_inicio_lista(int i, int j, t_lista *l);
 void tamanho_lista(int *tam, t_lista *l);
 
 /*
-  Insere o elemento item no final da lista.
-  Retorna 1 se a operação foi bem sucedida e zero caso contrário.
+  Insere as chaves i e j no final da lista.
+  Retorna 1 se a operação foi bem sucedida, senão 0.
 */
 int insere_fim_lista(int i, int j, t_lista *l);
 
 /*
-  Remove o primeiro elemento da lista e o retorna em *item.
-  Retorna 1 se a operação foi bem sucedida e zero caso contrário.
+  Remove o primeiro nodo da lista e o retorna as chaves em *i e *j.
+  Retorna 1 se a operação foi bem sucedida, senão 0.
 */
 int remove_inicio_lista(int *i, int *j, t_lista *l);
 
 /*
-  Remove o último elemento da lista e o retorna em *item.
-  Retorna 1 se a operação foi bem sucedida e zero caso contrário.
+  Remove o último nodo da lista e o retorna as chaves em *i e *j.
+  Retorna 1 se a operação foi bem sucedida, senão 0.
 */
 int remove_fim_lista(int *i, int *j, t_lista *l);
 
 /*
-  Se o elemento chave existir na lista, o retorna em *item.
-  Retorna 1 se a operação foi bem sucedida e zero caso contrário
-  (elemento não encontrado também retorna zero).
-*/
-int remove_item_lista(int chave, int *item, t_lista *l);
-
-/*
-  Retorna 1 se o elemento contendo a chave chave existe na lista,
-  caso contrário retorna zero.
+  Retorna 1 se as chaves i e j existem na lista, senão 0.
 */
 int pertence_lista(int i, int j, t_lista *l);
 
 /* 
-  Inicializa o ponteiro atual para o primeiro elemento da lista.
-  Retorna 1 se a operação foi bem sucedida e zero caso contrário.
+  Inicializa o ponteiro atual para o primeiro nodo da lista.
+  Retorna 1 se a operação foi bem sucedida, senão 0.
 */
 int inicializa_atual_inicio(t_lista *l);
 
 /* 
-  Inicializa o ponteiro atual para o ultimo elemento da lista.
-  Retorna 1 se a operação foi bem sucedida e zero caso contrário.
+  Inicializa o ponteiro atual para o último nodo da lista.
+  Retorna 1 se a operação foi bem sucedida, senão 0.
 */
 int inicializa_atual_fim(t_lista *l);
 
@@ -117,15 +109,15 @@ void incrementa_atual(t_lista *l);
 void decrementa_atual(t_lista *l);
 
 /*
-  Retorna em *item o valor contido na chave apontada pelo ponteiro atual. 
+  Retorna em *i e *j as chaves do nodo apontado pelo ponteiro atual. 
   Se atual não for válido a função retorna zero senão retorna 1.
 */
 int consulta_item_atual(int *i, int *j, t_lista *atual);
 
 /*
-  Remove o elemento apontado por atual da lista l e o retorna em *item.
+  Remove o nodo apontado por atual da lista l e o retorna em *i e *j as chaves.
   Faz o atual apontar para o sucessor do nodo removido.
-  Retorna 1 se houve sucesso e zero caso contrário.
+  Retorna 1 se houve sucesso, senão 0.
 */
 int remove_item_atual(int *i, int *j, t_lista *l);
 
