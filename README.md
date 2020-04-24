@@ -1,2 +1,2 @@
-# jogodavida
-Implementação do Jogo da Vida de John Conway
+# Jogo da Vida
+* Implementação do Jogo da Vida de John Conway
