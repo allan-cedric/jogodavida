@@ -121,4 +121,11 @@ int consulta_item_atual(int *i, int *j, t_lista *atual);
 */
 int remove_item_atual(int *i, int *j, t_lista *l);
 
+/*
+  Concatena os elementos da lista c (na mesma ordem) ao final
+  da lista l e destroi a lista c.
+  Retorna 1 se a operação foi bem sucedida e zero caso contrário.
+*/
+int concatena_listas(t_lista *l, t_lista *c);
+
 #endif

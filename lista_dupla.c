@@ -234,3 +234,24 @@ void destroi_lista(t_lista *l)
 	free(l->ini);
 	free(l->fim);
 }
+
+int concatena_listas(t_lista *l, t_lista *c)
+{
+	if (lista_destruida(l) || lista_destruida(c) || lista_vazia(c))
+		return 0;
+
+	l->fim->prev->prox = c->ini->prox;
+	c->ini->prox->prev = l->fim->prev;
+
+	free(l->fim);
+	free(c->ini);
+
+	l->fim = c->fim;
+	c->fim = NULL;
+	c->atual = NULL;
+
+	l->tamanho += c->tamanho;
+	c->tamanho = 0;
+
+	return 1;
+}
