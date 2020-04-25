@@ -233,6 +233,7 @@ void destroi_lista(t_lista *l)
 
 	free(l->ini);
 	free(l->fim);
+	l->atual = NULL;
 }
 
 int concatena_listas(t_lista *l, t_lista *c)
