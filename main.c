@@ -45,17 +45,71 @@ int main()
         wattron(menu, A_BOLD);
         wattron(menu, COLOR_PAIR(4));
         mvwprintw(menu, 1, 80, "Envie G para começar! ");
+        wattroff(menu, COLOR_PAIR(4));
+        wattroff(menu, A_BOLD);
+        wattroff(menu, A_BLINK);
         wrefresh(menu);
         ch = wgetch(menu);
         if (ch == 'g' || ch == 'G')
             break;
-        wattroff(menu, COLOR_PAIR(4));
-        wattroff(menu, A_BOLD);
-        wattroff(menu, A_BLINK);
     }
 
-    /* Simulação do Jogo da Vida */
+    /* Cabeçalho */
+    wclear(geracao);
+    wclear(menu);
+    titulo(menu, 70);
+    wattron(menu, COLOR_PAIR(3));
+    box(menu, 0, 0);
+    wattroff(menu, COLOR_PAIR(3));
+    wrefresh(menu);
 
+    /* Simulação do Jogo da Vida */
+    curs_set(0);
+    int i, j;
+
+    /* Impressão da geração atual */
+    inicializa_atual_inicio(&geracao_atual);
+    while (geracao_atual.atual != geracao_atual.fim)
+    {
+        if (geracao_atual.atual->estado)
+        {
+            consulta_item_atual(&i, &j, &geracao_atual);
+
+            wattron(geracao, A_BOLD);
+            wattron(geracao, COLOR_PAIR(1));
+            box(geracao, 0, 0);
+            wattroff(geracao, COLOR_PAIR(1));
+
+            wattron(geracao, COLOR_PAIR(2));
+            mvwaddch(geracao, i, j, 'O');
+            wattroff(geracao, COLOR_PAIR(2));
+            wattroff(geracao, A_BOLD);
+
+            wrefresh(geracao);
+            sleep(1);
+        }
+
+        incrementa_atual(&geracao_atual);
+    }
+
+    noecho();
+    wattron(menu, A_BOLD);
+    wattron(menu, COLOR_PAIR(3));
+    mvwprintw(menu, 1, 120, "Pressione S p/ sair");
+    wattroff(menu, COLOR_PAIR(3));
+    wattron(menu, A_BOLD);
+    wrefresh(menu);
+
+    ch = wgetch(menu);
+    while (ch != 's' && ch != 'S')
+        ch = wgetch(menu);
+
+    destroi_lista(&geracao_atual);
+    destroi_lista(&vizinhos);
+    destroi_lista(&nascimentos);
+    delwin(menu);
+    delwin(geracao);
+    delwin(stdscr);
     endwin();
     return 0;
 }
