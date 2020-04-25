@@ -1,5 +1,5 @@
 #include "menu.h"
-#include <stdlib.h>
+#include "lista_dupla.h"
 #include <unistd.h>
 
 void tamanho_tela();
@@ -24,13 +24,21 @@ int main()
     WINDOW *geracao = newwin(36, 169, 3, 0);
     WINDOW *menu = newwin(3, 169, 0, 0);
 
+    t_lista geracao_atual;
+    t_lista vizinhos;
+    t_lista nascimentos;
+    inicializa_lista(&geracao_atual);
+    inicializa_lista(&vizinhos);
+    inicializa_lista(&nascimentos);
+
+    /* Menu completo */
     char ch;
     while (1)
     {
         tamanho_tela();
         wclear(menu);
         titulo(menu, 138);
-        interface(geracao, menu);
+        interface(geracao, menu, &geracao_atual);
 
         /* Input formatado para iniciar */
         wattron(menu, A_BLINK);
@@ -45,6 +53,8 @@ int main()
         wattroff(menu, A_BOLD);
         wattroff(menu, A_BLINK);
     }
+
+    /* Simulação do Jogo da Vida */
 
     endwin();
     return 0;
