@@ -1,10 +1,10 @@
 #include "menu.h"
 #include <unistd.h>
 
+void tamanho_tela();
+
 int main()
 {
-    int lin, col;
-
     initscr();
 
     start_color();
@@ -23,18 +23,10 @@ int main()
     WINDOW *geracao = newwin(36, 169, 3, 0);
     WINDOW *menu = newwin(3, 169, 0, 0);
 
-    getmaxyx(stdscr, lin, col);
-    if (lin < 37 || col < 169)
-    {
-        endwin();
-        printf("Tamanho requisitado: pelo menos 39 linhas por 169 colunas!\n");
-        printf("Tamanho atual: %i linhas por %i colunas\n", lin, col);
-        return 1;
-    }
-
     char ch;
     while (1)
     {
+        tamanho_tela();
         wclear(menu);
         titulo(menu, 138);
         interface(geracao, menu);
@@ -55,4 +47,17 @@ int main()
 
     endwin();
     return 0;
+}
+
+void tamanho_tela()
+{
+    int lin, col;
+    getmaxyx(stdscr, lin, col);
+    if (lin < 37 || col < 169)
+    {
+        endwin();
+        printf("Tamanho requisitado: pelo menos 39 linhas por 169 colunas!\n");
+        printf("Tamanho atual: %i linhas por %i colunas\n", lin, col);
+        exit(1);
+    }
 }
