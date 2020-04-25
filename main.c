@@ -80,28 +80,29 @@ int main()
         inicializa_atual_inicio(&geracao_atual);
         while (geracao_atual.atual != geracao_atual.fim)
         {
-            if (geracao_atual.atual->estado)
-            {
-                consulta_item_atual(&i, &j, &geracao_atual);
+            consulta_item_atual(&i, &j, &geracao_atual);
 
-                wattron(geracao, A_BOLD);
-                wattron(geracao, COLOR_PAIR(1));
-                box(geracao, 0, 0);
-                wattroff(geracao, COLOR_PAIR(1));
+            wattron(geracao, A_BOLD);
+            wattron(geracao, COLOR_PAIR(1));
+            box(geracao, 0, 0);
+            wattroff(geracao, COLOR_PAIR(1));
 
-                wattron(geracao, COLOR_PAIR(2));
-                mvwaddch(geracao, i, j, 'O');
-                wattroff(geracao, COLOR_PAIR(2));
-                wattroff(geracao, A_BOLD);
+            wattron(geracao, COLOR_PAIR(2));
+            mvwaddch(geracao, i, j, 'O');
+            wattroff(geracao, COLOR_PAIR(2));
+            wattroff(geracao, A_BOLD);
 
-                wrefresh(geracao);
-                sleep(1);
-            }
+            wrefresh(geracao);
+            sleep(1);
 
             incrementa_atual(&geracao_atual);
         }
 
-        gera_vizinhos(&vizinhos);
+        gera_vizinhos(&geracao_atual, &vizinhos);
+        dinamica_populacao(&geracao_atual, &vizinhos, &nascimentos);
+        concatena_listas(&geracao_atual, &nascimentos);
+        destroi_lista(&vizinhos);
+        inicializa_lista(&vizinhos);
 
         wattron(menu, A_BOLD);
         wattron(menu, COLOR_PAIR(3));
