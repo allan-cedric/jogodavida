@@ -68,45 +68,52 @@ int main()
     wrefresh(menu);
 
     /* Simulação do Jogo da Vida */
+    noecho();
+    cbreak();
+    nodelay(menu, 1);
     curs_set(0);
     int i, j;
 
-    /* Impressão da geração atual */
-    inicializa_atual_inicio(&geracao_atual);
-    while (geracao_atual.atual != geracao_atual.fim)
+    while (!lista_vazia(&geracao_atual))
     {
-        if (geracao_atual.atual->estado)
+        /* Impressão da geração atual */
+        inicializa_atual_inicio(&geracao_atual);
+        while (geracao_atual.atual != geracao_atual.fim)
         {
-            consulta_item_atual(&i, &j, &geracao_atual);
+            if (geracao_atual.atual->estado)
+            {
+                consulta_item_atual(&i, &j, &geracao_atual);
 
-            wattron(geracao, A_BOLD);
-            wattron(geracao, COLOR_PAIR(1));
-            box(geracao, 0, 0);
-            wattroff(geracao, COLOR_PAIR(1));
+                wattron(geracao, A_BOLD);
+                wattron(geracao, COLOR_PAIR(1));
+                box(geracao, 0, 0);
+                wattroff(geracao, COLOR_PAIR(1));
 
-            wattron(geracao, COLOR_PAIR(2));
-            mvwaddch(geracao, i, j, 'O');
-            wattroff(geracao, COLOR_PAIR(2));
-            wattroff(geracao, A_BOLD);
+                wattron(geracao, COLOR_PAIR(2));
+                mvwaddch(geracao, i, j, 'O');
+                wattroff(geracao, COLOR_PAIR(2));
+                wattroff(geracao, A_BOLD);
 
-            wrefresh(geracao);
-            sleep(1);
+                wrefresh(geracao);
+                sleep(1);
+            }
+
+            incrementa_atual(&geracao_atual);
         }
 
-        incrementa_atual(&geracao_atual);
-    }
+        gera_vizinhos(&vizinhos);
 
-    noecho();
-    wattron(menu, A_BOLD);
-    wattron(menu, COLOR_PAIR(3));
-    mvwprintw(menu, 1, 120, "Pressione S p/ sair");
-    wattroff(menu, COLOR_PAIR(3));
-    wattron(menu, A_BOLD);
-    wrefresh(menu);
+        wattron(menu, A_BOLD);
+        wattron(menu, COLOR_PAIR(3));
+        mvwprintw(menu, 1, 120, "Pressione S p/ sair");
+        wattroff(menu, COLOR_PAIR(3));
+        wattron(menu, A_BOLD);
+        wrefresh(menu);
 
-    ch = wgetch(menu);
-    while (ch != 's' && ch != 'S')
         ch = wgetch(menu);
+        if (ch == 's' || ch == 'S')
+            break;
+    }
 
     destroi_lista(&geracao_atual);
     destroi_lista(&vizinhos);
