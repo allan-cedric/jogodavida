@@ -1,4 +1,5 @@
 #include "menu.h"
+#include <stdlib.h>
 #include <unistd.h>
 
 void tamanho_tela();
