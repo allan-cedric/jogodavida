@@ -13,7 +13,7 @@
 
 struct t_nodo
 {
-  int i, j;
+  int i, j, estado;
   struct t_nodo *prox;
   struct t_nodo *prev;
 };
@@ -52,7 +52,7 @@ void destroi_lista(t_lista *l);
   Insere as chaves i e j no início da lista.
   Retorna 1 se a operação foi bem sucedida, senão 0.
 */
-int insere_inicio_lista(int i, int j, t_lista *l);
+int insere_inicio_lista(int i, int j, int estado, t_lista *l);
 
 /*
   Retorna o tamanho da lista em *tam.
@@ -63,7 +63,7 @@ void tamanho_lista(int *tam, t_lista *l);
   Insere as chaves i e j no final da lista.
   Retorna 1 se a operação foi bem sucedida, senão 0.
 */
-int insere_fim_lista(int i, int j, t_lista *l);
+int insere_fim_lista(int i, int j, int estado, t_lista *l);
 
 /*
   Remove o primeiro nodo da lista e o retorna as chaves em *i e *j.

@@ -120,7 +120,7 @@ int remove_item_atual(int *i, int *j, t_lista *l)
 	return 1;
 }
 
-int insere_inicio_lista(int i, int j, t_lista *l)
+int insere_inicio_lista(int i, int j, int estado, t_lista *l)
 {
 	if (lista_destruida(l))
 		return 0;
@@ -132,6 +132,7 @@ int insere_inicio_lista(int i, int j, t_lista *l)
 
 	elemento->i = i;
 	elemento->j = j;
+	elemento->estado = estado;
 	elemento->prev = l->ini;
 	elemento->prox = l->ini->prox;
 
@@ -143,7 +144,7 @@ int insere_inicio_lista(int i, int j, t_lista *l)
 	return 1;
 }
 
-int insere_fim_lista(int i, int j, t_lista *l)
+int insere_fim_lista(int i, int j, int estado, t_lista *l)
 {
 	if (lista_destruida(l))
 		return 0;
@@ -155,6 +156,7 @@ int insere_fim_lista(int i, int j, t_lista *l)
 
 	elemento->i = i;
 	elemento->j = j;
+	elemento->estado = estado;
 	elemento->prev = l->fim->prev;
 	elemento->prox = l->fim;
 
