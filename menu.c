@@ -1,6 +1,6 @@
 #include "menu.h"
 
-void interface(WINDOW *scr, WINDOW *scr2)
+void interface(WINDOW *scr, WINDOW *scr2, t_lista *gen)
 {
     int i, j;
 
@@ -25,10 +25,17 @@ void interface(WINDOW *scr, WINDOW *scr2)
     wrefresh(scr2);
 
     /* Impressão de uma célula na geração inicial */
-    wattron(scr, COLOR_PAIR(2));
-    mvwaddch(scr, i, j, 'O');
-    wattroff(scr, COLOR_PAIR(2));
-    wrefresh(scr);
+    if (i >= 1 && i <= 34)
+    {
+        if (j >= 1 && j <= 167)
+        {
+            insere_inicio_lista(i, j, VIVO, gen);
+            wattron(scr, COLOR_PAIR(2));
+            mvwaddch(scr, i, j, 'O');
+            wattroff(scr, COLOR_PAIR(2));
+            wrefresh(scr);
+        }
+    }
 
     wattroff(scr, A_BOLD);
     wattroff(scr2, A_BOLD);
