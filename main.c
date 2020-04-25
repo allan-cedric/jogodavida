@@ -2,12 +2,14 @@
 #include "lista_dupla.h"
 #include <unistd.h>
 
+/* Verifica se o tamanho da tela do terminal está apropriada p/ simulação */
 void tamanho_tela();
 
 int main()
 {
     initscr();
 
+    /* Sistema de cores */
     start_color();
     init_color(COLOR_BLACK, 0, 0, 0);
     init_color(COLOR_GREEN, 0, 999, 0);
@@ -21,9 +23,11 @@ int main()
     init_pair(4, COLOR_YELLOW, COLOR_BLACK);
     init_pair(5, COLOR_GREEN, COLOR_BLACK);
 
+    /* Tela p/ cada geração / Tela do menu */
     WINDOW *geracao = newwin(36, 169, 3, 0);
     WINDOW *menu = newwin(3, 169, 0, 0);
 
+    /* Listas definidas */
     t_lista geracao_atual;
     t_lista vizinhos;
     t_lista nascimentos;
@@ -54,7 +58,7 @@ int main()
             break;
     }
 
-    /* Cabeçalho */
+    /* Cabeçalho que vai ficar durante a simulação */
     wclear(geracao);
     wclear(menu);
     titulo(menu, 70);
@@ -108,9 +112,11 @@ int main()
     destroi_lista(&vizinhos);
     destroi_lista(&nascimentos);
     delwin(menu);
+
     delwin(geracao);
     delwin(stdscr);
     endwin();
+
     return 0;
 }
 
