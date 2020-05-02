@@ -7,7 +7,7 @@ EXEC=main
 all: main clean
 
 main: $(OBJ)
-	$(CC) $(OBJ) -o main $(CFLAGS) $(LDLIBS)
+	$(CC) $(OBJ) -o $(EXEC) $(CFLAGS) $(LDLIBS)
 
 jogodavida.o: jogodavida.h jogodavida.c
 	$(CC) -c jogodavida.c $(CFLAGS)
