@@ -23,7 +23,7 @@ int main()
     init_pair(4, COLOR_YELLOW, COLOR_BLACK);
     init_pair(5, COLOR_GREEN, COLOR_BLACK);
 
-    /* Tela p/ cada geração / Tela do menu */
+    /* Tela p/ cada geração & Tela do menu */
     WINDOW *geracao = newwin(36, 169, 3, 0);
     WINDOW *menu = newwin(3, 169, 0, 0);
 
@@ -35,6 +35,10 @@ int main()
     inicializa_lista(&vizinhos);
     inicializa_lista(&nascimentos);
 
+    /* Matriz das gerações */
+    int mat_geracao[LIN][COL];
+    inicializa_matriz_geracao(mat_geracao);
+
     /* Menu completo */
     char ch;
     while (1)
@@ -42,7 +46,7 @@ int main()
         tamanho_tela();
         wclear(menu);
         titulo(menu, 138);
-        interface(geracao, menu, &geracao_atual);
+        interface(geracao, menu, &geracao_atual, mat_geracao);
 
         /* Input formatado para iniciar */
         wattron(menu, A_BLINK);
@@ -98,11 +102,11 @@ int main()
             incrementa_atual(&geracao_atual);
         }
 
-        gera_vizinhos(&geracao_atual, &vizinhos);
+        /*gera_vizinhos(&geracao_atual, &vizinhos);
         dinamica_populacao(&geracao_atual, &vizinhos, &nascimentos);
         concatena_listas(&geracao_atual, &nascimentos);
         destroi_lista(&vizinhos);
-        inicializa_lista(&vizinhos);
+        inicializa_lista(&vizinhos);*/
 
         wattron(menu, A_BOLD);
         wattron(menu, COLOR_PAIR(3));
