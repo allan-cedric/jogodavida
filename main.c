@@ -31,7 +31,7 @@ int main()
     int mat_geracao[LIN][COL];
     int mat_geracao_calc[LIN][COL];
     inicializa_matriz_geracao(mat_geracao);
-    inicializa_matriz_geracao(mat_geracao);
+    inicializa_matriz_geracao(mat_geracao_calc);
 
     /* Menu completo */
     char ch;
@@ -74,6 +74,7 @@ int main()
     int i, j;
     while (!geracao_morta(mat_geracao))
     {
+        tamanho_tela();
         wclear(geracao);
 
         wattron(geracao, COLOR_PAIR(1));
