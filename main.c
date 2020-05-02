@@ -75,6 +75,7 @@ int main()
     while (!geracao_morta(mat_geracao))
     {
         wclear(geracao);
+
         wattron(geracao, COLOR_PAIR(1));
         box(geracao, 0, 0);
         wattroff(geracao, COLOR_PAIR(1));
@@ -93,6 +94,7 @@ int main()
         wattroff(geracao, A_BOLD);
         wattroff(geracao, COLOR_PAIR(2));
         wrefresh(geracao);
+
         usleep(100000);
 
         nova_geracao(mat_geracao, mat_geracao_calc);
