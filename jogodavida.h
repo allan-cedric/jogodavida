@@ -1,9 +1,6 @@
 #ifndef __JOGODAVIDA_H__
 #define __JOGODAVIDA_H__
 
-#include <ncurses.h>
-#include "lista_dupla.h"
-
 #define MORTO 0
 #define VIVO 1
 
@@ -12,6 +9,14 @@
 
 void inicializa_matriz_geracao(int mat[LIN][COL]);
 
-void gera_vizinhos(t_lista *gen, t_lista *viz);
+int posicao_valida(int i, int j);
+
+int geracao_morta(int mat[LIN][COL]);
+
+void nova_geracao(int mat[LIN][COL], int mat_1[LIN][COL]);
+
+void copia_matriz(int mat[LIN][COL], int mat_1[LIN][COL]);
+
+int conta_vizinhos(int i, int j, int mat[LIN][COL]);
 
 #endif

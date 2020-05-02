@@ -1,5 +1,4 @@
 #include "menu.h"
-#include "lista_dupla.h"
 #include <unistd.h>
 
 /* Verifica se o tamanho da tela do terminal está apropriada p/ simulação */
@@ -27,16 +26,10 @@ int main()
     WINDOW *geracao = newwin(36, 169, 3, 0);
     WINDOW *menu = newwin(3, 169, 0, 0);
 
-    /* Listas definidas */
-    t_lista geracao_atual;
-    t_lista vizinhos;
-    t_lista nascimentos;
-    inicializa_lista(&geracao_atual);
-    inicializa_lista(&vizinhos);
-    inicializa_lista(&nascimentos);
-
     /* Matriz das gerações */
     int mat_geracao[LIN][COL];
+    int mat_geracao_calc[LIN][COL];
+    inicializa_matriz_geracao(mat_geracao);
     inicializa_matriz_geracao(mat_geracao);
 
     /* Menu completo */
@@ -46,7 +39,7 @@ int main()
         tamanho_tela();
         wclear(menu);
         titulo(menu, 138);
-        interface(geracao, menu, &geracao_atual, mat_geracao);
+        interface(geracao, menu, mat_geracao);
 
         /* Input formatado para iniciar */
         wattron(menu, A_BLINK);
@@ -63,7 +56,6 @@ int main()
     }
 
     /* Cabeçalho que vai ficar durante a simulação */
-    wclear(geracao);
     wclear(menu);
     titulo(menu, 70);
     wattron(menu, COLOR_PAIR(3));
@@ -76,42 +68,34 @@ int main()
     cbreak();
     nodelay(menu, 1);
     curs_set(0);
+
     int i, j;
-
-    while (!lista_vazia(&geracao_atual))
+    while (!geracao_morta(mat_geracao))
     {
-        /* Impressão da geração atual */
-        inicializa_atual_inicio(&geracao_atual);
-        while (geracao_atual.atual != geracao_atual.fim)
+        nova_geracao(mat_geracao, mat_geracao_calc);
+
+        wattron(geracao, COLOR_PAIR(1));
+        box(geracao, 0, 0);
+        wattroff(geracao, COLOR_PAIR(1));
+        wrefresh(geracao);
+
+        wattron(geracao, A_BOLD);
+        wattron(geracao, COLOR_PAIR(2));
+        for (i = 1; i < LIN; i++)
         {
-            consulta_item_atual(&i, &j, &geracao_atual);
-
-            wattron(geracao, A_BOLD);
-            wattron(geracao, COLOR_PAIR(1));
-            box(geracao, 0, 0);
-            wattroff(geracao, COLOR_PAIR(1));
-
-            wattron(geracao, COLOR_PAIR(2));
-            mvwaddch(geracao, i, j, 'O');
-            wattroff(geracao, COLOR_PAIR(2));
-            wattroff(geracao, A_BOLD);
-
-            wrefresh(geracao);
-            sleep(1);
-
-            incrementa_atual(&geracao_atual);
+            for (j = 1; j < COL; j++)
+            {
+                if (mat_geracao[i][j])
+                {
+                    mvwaddch(geracao, i, j, 'O');
+                    wrefresh(geracao);
+                }
+            }
         }
-
-        gera_vizinhos(&geracao_atual, &vizinhos);
-        /*dinamica_populacao(&geracao_atual, &vizinhos, &nascimentos);
-        concatena_listas(&geracao_atual, &nascimentos);
-        destroi_lista(&vizinhos);
-        inicializa_lista(&vizinhos);*/
+        wattroff(geracao, A_BOLD);
+        wattroff(geracao, COLOR_PAIR(2));
+        sleep(1);
     }
-
-    destroi_lista(&geracao_atual);
-    destroi_lista(&vizinhos);
-    destroi_lista(&nascimentos);
 
     delwin(menu);
     delwin(geracao);

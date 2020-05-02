@@ -10,21 +10,66 @@ void inicializa_matriz_geracao(int mat[LIN][COL])
     }
 }
 
-void gera_vizinhos(t_lista *gen, t_lista *viz)
+int posicao_valida(int i, int j)
 {
-    int i, j, i1, j1;
-    inicializa_atual_inicio(gen);
-    while (gen->atual != gen->fim)
+    if (i >= 1 && i < LIN)
+        return (j >= 1 && j < COL);
+    return 0;
+}
+
+int geracao_morta(int mat[LIN][COL])
+{
+    int i, j;
+    for (i = 1; i < LIN; i++)
     {
-        consulta_item_atual(&i, &j, gen);
-        for (i1 = i - 1; i1 <= i; i1++)
+        for (j = 1; j < COL; j++)
         {
-            for (j1 = j1 - 1; j <= j; j1++)
-            {
-                if (!pertence_lista(i1, j1, viz) && !pertence_lista(i1, j1, gen))
-                    insere_inicio_lista(i1, j1, MORTO, viz);
-            }
+            if (mat[i][j])
+                return 0;
         }
-        incrementa_atual(gen);
     }
+    return 1;
+}
+
+void nova_geracao(int mat[LIN][COL], int mat_1[LIN][COL])
+{
+    int i, j;
+    int num_vizinhos;
+    for (i = 1; i < LIN; i++)
+    {
+        for (j = 1; j < COL; j++)
+        {
+            num_vizinhos = conta_vizinhos(i, j, mat);
+            if (!mat[i][j])
+                mat_1[i][j] = num_vizinhos == 3;
+            else if (num_vizinhos != 2)
+                mat_1[i][j] = MORTO;
+            else
+                mat_1[i][j] = mat[i][j];
+        }
+    }
+    copia_matriz(mat_1, mat);
+}
+
+void copia_matriz(int mat[LIN][COL], int mat_1[LIN][COL])
+{
+    int i, j;
+    for (i = 1; i < LIN; i++)
+    {
+        for (j = 1; j < COL; j++)
+            mat_1[i][j] = mat[i][j];
+    }
+}
+
+int conta_vizinhos(int i, int j, int mat[LIN][COL])
+{
+    int k, w, soma = 0;
+    for (k = i - 1; k <= i + 1; k++)
+    {
+        for (w = j - 1; w <= j + 1; w++)
+            soma += mat[k][w];
+    }
+    if (mat[i][j])
+        return --soma;
+    return soma;
 }
