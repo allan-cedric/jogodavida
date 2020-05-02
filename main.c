@@ -107,17 +107,6 @@ int main()
         concatena_listas(&geracao_atual, &nascimentos);
         destroi_lista(&vizinhos);
         inicializa_lista(&vizinhos);*/
-
-        wattron(menu, A_BOLD);
-        wattron(menu, COLOR_PAIR(3));
-        mvwprintw(menu, 1, 120, "Pressione S p/ sair");
-        wattroff(menu, COLOR_PAIR(3));
-        wattron(menu, A_BOLD);
-        wrefresh(menu);
-
-        ch = wgetch(menu);
-        if (ch == 's' || ch == 'S')
-            break;
     }
 
     destroi_lista(&geracao_atual);
