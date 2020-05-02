@@ -40,15 +40,14 @@ void nova_geracao(int mat[LIN][COL], int mat_1[LIN][COL])
         for (j = 1; j < COL; j++)
         {
             num_vizinhos = conta_vizinhos(i, j, mat);
-            if (!mat[i][j])
-                mat_1[i][j] = num_vizinhos == 3;
+            if (num_vizinhos == 3)
+                mat_1[i][j] = VIVO;
             else if (num_vizinhos != 2)
                 mat_1[i][j] = MORTO;
             else
                 mat_1[i][j] = mat[i][j];
         }
     }
-    copia_matriz(mat_1, mat);
 }
 
 void copia_matriz(int mat[LIN][COL], int mat_1[LIN][COL])
@@ -67,9 +66,26 @@ int conta_vizinhos(int i, int j, int mat[LIN][COL])
     for (k = i - 1; k <= i + 1; k++)
     {
         for (w = j - 1; w <= j + 1; w++)
-            soma += mat[k][w];
+        {
+            if (posicao_valida(k, w))
+                soma += mat[k][w];
+        }
     }
     if (mat[i][j])
         return --soma;
     return soma;
+}
+
+int geracao_igual(int mat[LIN][COL], int mat_1[LIN][COL])
+{
+    int i, j;
+    for (i = 1; i < LIN; i++)
+    {
+        for (j = 1; j < COL; j++)
+        {
+            if (mat[i][j] != mat_1[i][j])
+                return 0;
+        }
+    }
+    return 1;
 }

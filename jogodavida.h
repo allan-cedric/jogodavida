@@ -19,4 +19,6 @@ void copia_matriz(int mat[LIN][COL], int mat_1[LIN][COL]);
 
 int conta_vizinhos(int i, int j, int mat[LIN][COL]);
 
+int geracao_igual(int mat[LIN][COL], int mat_1[LIN][COL]);
+
 #endif

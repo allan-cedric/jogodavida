@@ -1,4 +1,5 @@
 #include "menu.h"
+#include <stdlib.h>
 #include <unistd.h>
 
 /* Verifica se o tamanho da tela do terminal está apropriada p/ simulação */
@@ -57,6 +58,7 @@ int main()
 
     /* Cabeçalho que vai ficar durante a simulação */
     wclear(menu);
+    wclear(geracao);
     titulo(menu, 70);
     wattron(menu, COLOR_PAIR(3));
     box(menu, 0, 0);
@@ -72,8 +74,7 @@ int main()
     int i, j;
     while (!geracao_morta(mat_geracao))
     {
-        nova_geracao(mat_geracao, mat_geracao_calc);
-
+        wclear(geracao);
         wattron(geracao, COLOR_PAIR(1));
         box(geracao, 0, 0);
         wattroff(geracao, COLOR_PAIR(1));
@@ -86,16 +87,20 @@ int main()
             for (j = 1; j < COL; j++)
             {
                 if (mat_geracao[i][j])
-                {
                     mvwaddch(geracao, i, j, 'O');
-                    wrefresh(geracao);
-                }
             }
         }
         wattroff(geracao, A_BOLD);
         wattroff(geracao, COLOR_PAIR(2));
-        sleep(1);
+        wrefresh(geracao);
+        usleep(100000);
+
+        nova_geracao(mat_geracao, mat_geracao_calc);
+        if (geracao_igual(mat_geracao, mat_geracao_calc))
+            break;
+        copia_matriz(mat_geracao_calc, mat_geracao);
     }
+    sleep(1);
 
     delwin(menu);
     delwin(geracao);
