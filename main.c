@@ -102,8 +102,8 @@ int main()
             incrementa_atual(&geracao_atual);
         }
 
-        /*gera_vizinhos(&geracao_atual, &vizinhos);
-        dinamica_populacao(&geracao_atual, &vizinhos, &nascimentos);
+        gera_vizinhos(&geracao_atual, &vizinhos);
+        /*dinamica_populacao(&geracao_atual, &vizinhos, &nascimentos);
         concatena_listas(&geracao_atual, &nascimentos);
         destroi_lista(&vizinhos);
         inicializa_lista(&vizinhos);*/
@@ -112,10 +112,11 @@ int main()
     destroi_lista(&geracao_atual);
     destroi_lista(&vizinhos);
     destroi_lista(&nascimentos);
-    delwin(menu);
 
+    delwin(menu);
     delwin(geracao);
     delwin(stdscr);
+
     endwin();
 
     return 0;
