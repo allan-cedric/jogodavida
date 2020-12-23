@@ -7,4 +7,4 @@
 ## Execução:
         ./main
 
-Os inputs das células se da no formato "linha coluna"
+Os inputs das células se da no formato "linha coluna".
