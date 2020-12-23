@@ -1,2 +1,10 @@
 # Jogo da Vida
-* Implementação do Jogo da Vida de John Conway
+* Implementação em C do Jogo da Vida de John Conway
+
+## Compilação:
+        make
+
+## Execução:
+        ./main
+
+Os inputs das células se da no formato "linha coluna"
